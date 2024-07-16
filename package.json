@@ -13,12 +13,20 @@
     "lint": "eslint . --fix --quiet --color --cache",
     "lint:format": "prettier --check .",
     "lint:spelling": "cspell . --no-progress --unique",
-    "format": "prettier --write app"
+    "format": "prettier --write app",
+    "migrate": "bun run app/utils/umzug/index.ts up",
+    "rollback": "sh -c 'while true; do bun run app/utils/umzug/index.ts down; read -p \"Rollback again? [y/n] \" yn; case $yn in [Nn]* ) break;; esac; done'",
+    "rollback:all": "bun run app/utils/umzug/index.ts down --to 0",
+    "create:migration": "bun run app/utils/umzug/index.ts create"
   },
   "author": "Patrick Rizzardi <patrick@redact.digital> (https://redact.digital)",
   "dependencies": {
+    "@elysiajs/cors": "^1.0.4",
+    "@sequelize/core": "^7.0.0-alpha.40",
+    "@sequelize/mysql": "^7.0.0-alpha.40",
     "datadog-winston": "^1.5.1",
-    "dayjs": "^1.11.9",
+    "dayjs": "^1.11.11",
+    "elysia": "^1.0.27",
     "mathjs": "^11.9.1",
     "winston": "^3.10.0"
   },
@@ -34,7 +42,8 @@
     "logform": "^2.5.1",
     "prettier": "^3.0.0",
     "typescript": "^5.1.6",
-    "typescript-eslint": "^7.16.0"
+    "typescript-eslint": "^7.16.0",
+    "umzug": "^3.8.1"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"

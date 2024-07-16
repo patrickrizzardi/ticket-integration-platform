@@ -1,5 +1,8 @@
 services:
   api:
+    depends_on:
+      db:
+        condition: service_healthy
     user: bun
     image: oven/bun:1.0.4
     restart: unless-stopped
@@ -9,3 +12,28 @@ services:
       - '5000:5000'
     volumes:
       - ./:/usr/src/app
+    networks:
+      - ticket-network
+
+  db:
+    image: mysql:8.3.0
+    restart: unless-stopped
+    networks:
+      - ticket-network
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_DATABASE: app
+      MYSQL_USER: app
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password
+    healthcheck:
+      test: ['CMD', 'mysqladmin', 'ping', '-h', 'localhost']
+      interval: 5s
+      timeout: 30s
+      retries: 3
+      start_period: 5s
+
+networks:
+  ticket-network:
+    driver: bridge

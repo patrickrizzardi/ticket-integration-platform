@@ -26,14 +26,13 @@ declare module 'bun' {
   }
 
   export interface Env extends LogEnv {
-    /**
-     * This defaults to `development` if not set.
-     */
     NODE_ENV?: string;
+    PORT: string;
 
-    /**
-     * This defaults to port `5000` if not set.
-     */
-    PORT?: string;
+    DATABASE_NAME: string;
+    DATABASE_PASSWORD: string;
+    DATABASE_USER: string;
+    DATABASE_PORT: string;
+    DATABASE_HOST: string;
   }
 }

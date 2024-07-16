@@ -11,6 +11,7 @@
 
     /* Bundler mode */
     "moduleResolution": "NodeNext",
+    "experimentalDecorators": true,
     "moduleDetection": "force",
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
